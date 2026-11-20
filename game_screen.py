@@ -3,18 +3,20 @@ import random
 import pygame
 from config import (WIDTH, HEIGHT, FPS, FASES, LIXEIRAS, ORDEM_LIXEIRAS, PONTOS_ACERTO, ESTEIRA_X_FIM,
                     BRANCO, PRETO, CINZA, CINZA_ESCURO, CREME, AMARELO_OURO, VERDE_OK, VERMELHO_ERRO,
-                    AZUL_UI, LARANJA_UI, INIT, GAME, RESULTADO, QUIT)
+                    AZUL_UI, LARANJA_UI, DIFICULDADES, INIT, GAME, RESULTADO, QUIT)
 from dados import CONJUNTOS
 from desenho import texto, texto_paragrafo, quebrar_linhas, fonte, painel, escurecer_tela, lampada
 from sprites import Botao, Lixo, Lixeira, Particula, TextoFlutuante
 from cenarios import Esteira
+from dificuldade_screen import calcula_ajudas
 from assets import tocar_som, tocar_musica, pausar_musica, continuar_musica, liga_desliga_som
 
 # Regras da partida:
 # * cada fase tem um número fixo de lixos (10, 10 e 15);
 # * soltar na lixeira errada ou deixar cair da esteira conta como erro;
 # * clicar (sem arrastar) num lixo mostra uma ajuda e PAUSA o jogo
-#   (são 2 ajudas por fase; rever a ajuda de um mesmo lixo não gasta outra);
+#   (fácil = 2 ajudas por fase, médio = 1, difícil = nenhuma;
+#   rever a ajuda de um mesmo lixo não gasta outra);
 # * ESC pausa o jogo.
 
 # Estados da partida
@@ -97,7 +99,11 @@ def pede_ajuda(partida, lixo, assets, todos_efeitos):
         lixo.ajuda_vista = True
     else:
         tocar_som(assets, 'erro')
-        todos_efeitos.add(TextoFlutuante('Acabaram as ajudas!', (lixo.x, lixo.y - 60), LARANJA_UI, 28))
+        if partida['ajudas_total'] == 0:
+            mensagem = 'Sem ajudas no modo difícil!'
+        else:
+            mensagem = 'Acabaram as ajudas!'
+        todos_efeitos.add(TextoFlutuante(mensagem, (lixo.x, lixo.y - 60), LARANJA_UI, 28))
         return False
     tocar_som(assets, 'dica')
     return True
@@ -145,10 +151,15 @@ def desenha_hud(window, fase, info, partida):
     # Painel da direita: ajudas e instruções
     painel(window, (884, 66, 380, 170), CREME, 235)
     texto(window, 'Ajudas:', 30, PRETO, (904, 80), 'topleft')
-    for i in range(info['ajudas']):
+    if partida['ajudas_total'] == 0:
+        texto(window, 'nenhuma', 26, VERMELHO_ERRO, (1020, 84), 'topleft')
+    for i in range(partida['ajudas_total']):
         lampada(window, (1060 + i * 48, 98), i < partida['ajudas'], 0.9)
     texto(window, 'Arraste o lixo até a lixeira certa.', 19, CINZA_ESCURO, (904, 140), 'topleft')
-    texto(window, 'Clique no lixo para ver uma ajuda.', 19, CINZA_ESCURO, (904, 168), 'topleft')
+    if partida['ajudas_total'] > 0:
+        texto(window, 'Clique no lixo para ver uma ajuda.', 19, CINZA_ESCURO, (904, 168), 'topleft')
+    else:
+        texto(window, 'Modo difícil: sem ajudas!', 19, CINZA_ESCURO, (904, 168), 'topleft')
     texto(window, 'ESC: pausar o jogo', 19, CINZA_ESCURO, (904, 196), 'topleft')
 
 
@@ -162,11 +173,19 @@ def desenha_mensagem(window, partida):
     texto(window, partida['mensagem'], 28, VERMELHO_ERRO, r.center)
 
 
-def desenha_contagem(window, fase, info, tempo_estado):
+def desenha_contagem(window, fase, info, partida, tempo_estado):
     escurecer_tela(window, 110)
     texto(window, f'FASE {fase}', 90, AMARELO_OURO, (WIDTH / 2, 200), contorno=5)
     texto(window, info['subtitulo'], 36, BRANCO, (WIDTH / 2, 285), contorno=3)
-    texto(window, f"{info['itens']} lixos   •   {info['ajudas']} ajudas", 28, BRANCO, (WIDTH / 2, 335), contorno=3)
+    nome_dificuldade = DIFICULDADES[partida['dificuldade']]['nome']
+    if partida['ajudas_total'] == 1:
+        frase_ajudas = '1 ajuda'
+    elif partida['ajudas_total'] == 0:
+        frase_ajudas = 'sem ajudas'
+    else:
+        frase_ajudas = f"{partida['ajudas_total']} ajudas"
+    texto(window, f"{info['itens']} lixos   •   {frase_ajudas}   •   {nome_dificuldade}", 28, BRANCO,
+          (WIDTH / 2, 335), contorno=3)
     numero = int(tempo_estado / 0.8)
     rotulos = ['3', '2', '1', 'JÁ!']
     rotulo = rotulos[min(3, numero)]
@@ -239,6 +258,8 @@ def game_screen(window, assets, dados):
     fase = dados['fase']
     info = FASES[fase]
     total = info['itens']
+    # quantas ajudas a criança tem nesta fase depende da dificuldade escolhida
+    ajudas_total = calcula_ajudas(info['ajudas'], dados['dificuldade'])
 
     continuar_musica()
     tocar_musica(assets, f'musica_fase{fase}')
@@ -265,7 +286,9 @@ def game_screen(window, assets, dados):
         'acertos': 0,
         'pontos': 0,
         'sequencia': 0,  # acertos seguidos
-        'ajudas': info['ajudas'],
+        'dificuldade': dados['dificuldade'],
+        'ajudas_total': ajudas_total,  # ajudas que a fase começa (depende da dificuldade)
+        'ajudas': ajudas_total,  # ajudas que ainda restam
         'distancia_spawn': info['espacamento'],  # já começa pronto para soltar o 1º lixo
         'mensagem': '',  # faixa educativa que aparece depois de um erro
         'tempo_mensagem': 0,
@@ -469,7 +492,7 @@ def game_screen(window, assets, dados):
             desenha_mensagem(window, partida)
 
         if state == CONTAGEM:
-            desenha_contagem(window, fase, info, tempo_estado)
+            desenha_contagem(window, fase, info, partida, tempo_estado)
         elif state == DICA:
             desenha_dica(window, assets, lixo_dica, partida['ajudas'], tempo_estado, botao_entendi)
         elif state == PAUSA:

@@ -32,7 +32,14 @@ As cores seguem o padrão brasileiro da coleta seletiva (Resolução CONAMA 275)
 - O jogo tem **3 fases**. A esteira fica mais rápida a cada fase, e a música também.
 - Fases 1 e 2: **10 lixos**. Fase 3: **15 lixos**, todos diferentes e mais difíceis
   (isopor, papel-alumínio, caixa de ovos...).
-- **Ajudas:** em cada fase a criança pode **clicar 2 vezes** em lixos. O jogo **pausa** e mostra
+- **Dificuldade:** antes da fase 1 o jogo pergunta a dificuldade, que vale para as 3 fases:
+
+  | Dificuldade | Ajudas por fase |
+  |---|---|
+  | Fácil | todas (2) |
+  | Médio | metade (1) |
+  | Difícil | nenhuma |
+- **Ajudas:** em cada fase a criança pode **clicar** em lixos (quantas vezes depende da dificuldade). O jogo **pausa** e mostra
   o que é o objeto, do que ele é feito, em qual lixeira vai e por quê. As lâmpadas no canto
   da tela mostram quantas ajudas ainda restam. Rever a ajuda de um lixo já consultado não gasta outra.
 - Soltar na lixeira errada, ou deixar o lixo cair no fim da esteira, conta como erro. O jogo
@@ -44,8 +51,9 @@ As cores seguem o padrão brasileiro da coleta seletiva (Resolução CONAMA 275)
 
 ### Telas
 
-- **Menu** (fachada da central): `PLAY` começa a fase 1, `FASES` escolhe uma fase já
+- **Menu** (fachada da central): `PLAY` pergunta a dificuldade e começa a fase 1, `FASES` escolhe uma fase já
   desbloqueada e `SAIR` fecha o jogo.
+- **Dificuldade**: fácil, médio ou difícil (aparece antes da fase 1).
 - **Partida** (dentro da central): esteira, lixeiras, pontuação, ajudas e progresso da rodada.
 - **Resultado** da fase com estrelas animadas.
 - **Parabéns** com confete, lixeiras dançando e chuva de lixinhos.
@@ -82,7 +90,7 @@ Para recomeçar do zero, basta apagar esse arquivo.
 ## Organização do código
 
 A organização segue o modelo do handout de PyGame da disciplina: cada tela é uma função com o seu
-próprio loop, que devolve o estado da próxima tela (`INIT`, `ESCOLHA`, `GAME`, `RESULTADO`, `PARABENS`, `QUIT`).
+próprio loop, que devolve o estado da próxima tela (`INIT`, `ESCOLHA`, `DIFICULDADE`, `GAME`, `RESULTADO`, `PARABENS`, `QUIT`).
 
 ```
 jogo.py                 ponto de entrada: abre a janela e troca de tela conforme o estado
@@ -96,6 +104,7 @@ dados.py                catálogo de lixos com as explicações educativas
 progresso.py            salvar/carregar progresso e cálculo de estrelas
 init_screen.py          tela do menu principal
 fases_screen.py         tela de escolha de fases
+dificuldade_screen.py   tela de escolha da dificuldade e cálculo das ajudas
 game_screen.py          a partida (esteira, lixeiras, ajudas e pausa)
 resultado_screen.py     tela de estrelas no fim da fase
 parabens_screen.py      animação de vitória

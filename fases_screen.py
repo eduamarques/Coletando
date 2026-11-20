@@ -1,7 +1,7 @@
 import math
 import pygame
 from config import (WIDTH, FPS, FASES, BRANCO, PRETO, CINZA, CINZA_ESCURO, CREME, AMARELO_OURO, LARANJA_UI,
-                    CORES_TITULO, INIT, ESCOLHA, GAME, QUIT)
+                    CORES_TITULO, INIT, ESCOLHA, GAME, DIFICULDADE, QUIT)
 from desenho import texto, painel, estrela
 from sprites import Botao
 from assets import tocar_som, tocar_musica, liga_desliga_som
@@ -58,7 +58,10 @@ def fases_screen(window, assets, dados):
                         if cartao['liberada']:
                             tocar_som(assets, 'clique')
                             dados['fase'] = cartao['fase']
-                            state = GAME
+                            if cartao['fase'] == 1:
+                                state = DIFICULDADE  # pergunta a dificuldade antes da fase 1
+                            else:
+                                state = GAME
                             running = False
                         else:
                             tocar_som(assets, 'erro')

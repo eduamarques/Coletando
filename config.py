@@ -50,6 +50,17 @@ TOTAL_FASES = 3
 ESTRELAS_PARA_PASSAR = 2
 PONTOS_ACERTO = 100
 
+# Dificuldades: muda quantas ajudas a criança tem em cada fase
+#   facil   = todas as ajudas da fase
+#   medio   = metade das ajudas da fase
+#   dificil = nenhuma ajuda
+DIFICULDADES = {
+    'facil': {'nome': 'FÁCIL', 'cor': (60, 190, 90), 'descricao': 'Todas as ajudas'},
+    'medio': {'nome': 'MÉDIO', 'cor': (250, 150, 40), 'descricao': 'Metade das ajudas'},
+    'dificil': {'nome': 'DIFÍCIL', 'cor': (230, 70, 70), 'descricao': 'Nenhuma ajuda'},
+}
+ORDEM_DIFICULDADES = ['facil', 'medio', 'dificil']
+
 # Esteira
 ESTEIRA_Y = 300  # topo da esteira
 ESTEIRA_ALTURA = 110
@@ -66,3 +77,4 @@ GAME = 2  # partida
 RESULTADO = 3  # estrelas no fim da fase
 PARABENS = 4  # animação final
 QUIT = 5
+DIFICULDADE = 6  # escolha da dificuldade (antes da fase 1)

@@ -1,11 +1,12 @@
 # ===== Inicialização =====
 # ----- Importa e inicia pacotes
 import pygame
-from config import WIDTH, HEIGHT, TITULO, INIT, ESCOLHA, GAME, RESULTADO, PARABENS, QUIT
+from config import WIDTH, HEIGHT, TITULO, INIT, ESCOLHA, GAME, RESULTADO, PARABENS, QUIT, DIFICULDADE
 from assets import load_assets
 from progresso import carrega_progresso
 from init_screen import init_screen
 from fases_screen import fases_screen
+from dificuldade_screen import dificuldade_screen
 from game_screen import game_screen
 from resultado_screen import resultado_screen
 from parabens_screen import parabens_screen
@@ -25,6 +26,7 @@ assets = load_assets()
 dados = {
     'progresso': carrega_progresso(),  # fases desbloqueadas e estrelas
     'fase': 1,  # fase que vai ser jogada
+    'dificuldade': 'facil',  # 'facil', 'medio' ou 'dificil'
     'acertos': 0,  # resultado da última partida
     'total': 0,
     'pontos': 0,
@@ -38,6 +40,8 @@ while state != QUIT:
         state = init_screen(window, assets, dados)
     elif state == ESCOLHA:
         state = fases_screen(window, assets, dados)
+    elif state == DIFICULDADE:
+        state = dificuldade_screen(window, assets, dados)
     elif state == GAME:
         state = game_screen(window, assets, dados)
     elif state == RESULTADO:
