@@ -88,6 +88,13 @@ def fases_screen(window, assets, dados):
                     estrela(window, (r.centerx + (i - 1) * 62, r.y + 130), 26, cheia)
                 texto(window, f"{FASES[fase]['itens']} lixos", 26, PRETO, (r.centerx, r.y + 195))
                 texto(window, f'Esteira: {VELOCIDADES[fase]}', 22, CINZA_ESCURO, (r.centerx, r.y + 232))
+                # Eduardo
+                # Mostra o recorde de pontos da fase (ou um convite se ainda não jogou)
+                recorde = progresso['recordes'][fase]
+                if recorde > 0:
+                    texto(window, f'Recorde: {recorde}', 22, LARANJA_UI, (r.centerx, r.y + 268))
+                else:
+                    texto(window, 'Sem recorde ainda', 20, CINZA, (r.centerx, r.y + 268))
             else:
                 painel(window, r, (190, 190, 195), 255)
                 texto(window, f'FASE {fase}', 44, CINZA, (r.centerx, r.y + 50), contorno=3)

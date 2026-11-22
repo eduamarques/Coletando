@@ -12,7 +12,14 @@ from resultado_screen import resultado_screen
 from parabens_screen import parabens_screen
 
 pygame.init()
-pygame.mixer.init()
+try:
+    pygame.mixer.init()
+except pygame.error:
+    # Sem dispositivo de áudio (ex.: WSL): usa driver "dummy" e o jogo roda sem som
+    import os
+    os.environ['SDL_AUDIODRIVER'] = 'dummy'
+    pygame.mixer.quit()
+    pygame.mixer.init()
 
 # ----- Gera tela principal
 window = pygame.display.set_mode((WIDTH, HEIGHT))

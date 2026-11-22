@@ -129,7 +129,15 @@ def desenha_hud(window, fase, info, partida):
     # Painel da esquerda: fase, pontuação e progresso
     painel(window, (16, 66, 380, 170), CREME, 235)
     texto(window, f'Fase {fase}', 40, AZUL_UI, (36, 76), 'topleft', contorno=2)
-    texto(window, f"Pontuação: {partida['pontos']}", 28, PRETO, (36, 128), 'topleft')
+    # Eduardo
+    # Recorde no canto direito do painel. Quando a criança passa dele,
+    # a pontuação fica laranja e aparece o aviso "Recorde!"
+    if partida['recorde'] > 0 and partida['pontos'] > partida['recorde']:
+        texto(window, f"Pontuação: {partida['pontos']}", 28, LARANJA_UI, (36, 128), 'topleft')
+        texto(window, 'Recorde!', 22, LARANJA_UI, (378, 132), 'topright', contorno=1)
+    else:
+        texto(window, f"Pontuação: {partida['pontos']}", 28, PRETO, (36, 128), 'topleft')
+        texto(window, f"Recorde: {partida['recorde']}", 18, CINZA_ESCURO, (378, 137), 'topright')
     total = info['itens']
     feitos = len(partida['resultados'])
     texto(window, f"Lixos: {feitos}/{total}   Acertos: {partida['acertos']}", 22, CINZA_ESCURO, (36, 166), 'topleft')
@@ -306,7 +314,10 @@ def game_screen(window, assets, dados):
         'distancia_spawn': info['espacamento'],  # já começa pronto para soltar o 1º lixo
         'mensagem': '',  # faixa educativa que aparece depois de um erro
         'tempo_mensagem': 0,
-        'tempo_restante': tempo_limite
+        'tempo_restante': tempo_limite,
+        # Eduardo
+        # recorde da fase quando a partida começou (para mostrar no painel)
+        'recorde': dados['progresso']['recordes'][fase]
     }
     segurando = None  # lixo que está preso no mouse
     pos_clique = (0, 0)

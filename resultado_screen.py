@@ -1,5 +1,8 @@
+# Eduardo
+import math
 import pygame
-from config import (WIDTH, FPS, TOTAL_FASES, ESTRELAS_PARA_PASSAR, PRETO, CINZA_ESCURO, CREME,
+# Eduardo: AMARELO_OURO foi acrescentado para o aviso de novo recorde
+from config import (WIDTH, FPS, TOTAL_FASES, ESTRELAS_PARA_PASSAR, PRETO, CINZA_ESCURO, CREME, AMARELO_OURO,
                     VERDE_OK, VERMELHO_ERRO, AZUL_UI, LARANJA_UI, INIT, GAME, RESULTADO, PARABENS, QUIT)
 from desenho import texto, painel, escurecer_tela, estrela
 from sprites import Botao, Particula
@@ -22,7 +25,12 @@ def resultado_screen(window, assets, dados):
     total = dados['total']
     estrelas = calcula_estrelas(acertos, total)
     passou = estrelas >= ESTRELAS_PARA_PASSAR
-    registra_resultado(dados['progresso'], fase, estrelas)
+    # Eduardo
+    # Guarda o recorde ANTES de registrar, senão ele já estaria trocado pelo novo
+    recorde_antigo = dados['progresso']['recordes'][fase]
+    novo_recorde = dados['pontos'] > recorde_antigo
+    registra_resultado(dados['progresso'], fase, estrelas, dados['pontos'])
+    recorde = dados['progresso']['recordes'][fase]
 
     tocar_musica(assets, 'musica_menu')
     if passou:
@@ -48,6 +56,10 @@ def resultado_screen(window, assets, dados):
     todas_particulas = pygame.sprite.Group()
     tempo = 0
     estrelas_mostradas = 0
+    # Eduardo
+    # o confete do recorde sai uma vez só, depois que as estrelas aparecem
+    confete_recorde_feito = False
+    tempo_confete_recorde = 0.8 + estrelas * INTERVALO_ESTRELA + 0.3
 
     state = RESULTADO
     running = True
@@ -87,6 +99,13 @@ def resultado_screen(window, assets, dados):
                 todas_particulas.add(Particula(centro[0], centro[1], velocidade=420))
             estrelas_mostradas += 1
             tocar_som(assets, 'estrela')
+        # Eduardo
+        # explosão de confete em volta do aviso de novo recorde
+        if novo_recorde and not confete_recorde_feito and tempo > tempo_confete_recorde:
+            for i in range(45):
+                todas_particulas.add(Particula(WIDTH / 2 + 150, 420, velocidade=450))
+            tocar_som(assets, 'estrela')
+            confete_recorde_feito = True
         todas_particulas.update(dt)
 
         # ----- Gera saídas
@@ -108,7 +127,16 @@ def resultado_screen(window, assets, dados):
                 estrela(window, centro_estrela(i), 52, False)
 
         texto(window, f'Você acertou {acertos} de {total} lixos', 34, PRETO, (WIDTH / 2, 375))
-        texto(window, f"Pontuação: {dados['pontos']}", 30, AZUL_UI, (WIDTH / 2, 420))
+        # Eduardo
+        # Mostra a pontuação junto com o recorde da fase
+        if novo_recorde:
+            texto(window, f"Pontuação: {dados['pontos']}", 30, AZUL_UI, (WIDTH / 2 - 110, 420))
+            if confete_recorde_feito:
+                # o tamanho do texto aumenta e diminui para o aviso "pulsar"
+                tamanho = 30 + int(3 * math.sin(tempo * 6))
+                texto(window, 'NOVO RECORDE!', tamanho, AMARELO_OURO, (WIDTH / 2 + 150, 420), contorno=3)
+        else:
+            texto(window, f"Pontuação: {dados['pontos']}   •   Recorde: {recorde}", 30, AZUL_UI, (WIDTH / 2, 420))
         if passou and fase < TOTAL_FASES:
             texto(window, 'Muito bem! Você passou de fase!', 28, VERDE_OK, (WIDTH / 2, 480))
         elif passou:
