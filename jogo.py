@@ -1,12 +1,16 @@
 # ===== Inicialização =====
 # ----- Importa e inicia pacotes
 import pygame
+# Mateus
 from config import WIDTH, HEIGHT, TITULO, INIT, ESCOLHA, GAME, RESULTADO, PARABENS, QUIT, DIFICULDADE
+# Fim Mateus
 from assets import load_assets
 from progresso import carrega_progresso
 from init_screen import init_screen
 from fases_screen import fases_screen
+# Mateus
 from dificuldade_screen import dificuldade_screen
+# Fim Mateus
 from game_screen import game_screen
 from resultado_screen import resultado_screen
 from parabens_screen import parabens_screen
@@ -33,7 +37,9 @@ assets = load_assets()
 dados = {
     'progresso': carrega_progresso(),  # fases desbloqueadas e estrelas
     'fase': 1,  # fase que vai ser jogada
+    # Mateus
     'dificuldade': 'facil',  # 'facil', 'medio' ou 'dificil'
+    # Fim Mateus
     'acertos': 0,  # resultado da última partida
     'total': 0,
     'pontos': 0,
@@ -47,8 +53,10 @@ while state != QUIT:
         state = init_screen(window, assets, dados)
     elif state == ESCOLHA:
         state = fases_screen(window, assets, dados)
+    # Mateus
     elif state == DIFICULDADE:
         state = dificuldade_screen(window, assets, dados)
+    # Fim Mateus
     elif state == GAME:
         state = game_screen(window, assets, dados)
     elif state == RESULTADO:

@@ -1,3 +1,4 @@
+# Mateus
 import pygame
 from config import (WIDTH, FPS, FASES, DIFICULDADES, ORDEM_DIFICULDADES, BRANCO, PRETO, CINZA_ESCURO, CREME,
                     AMARELO_OURO, LARANJA_UI, INIT, GAME, QUIT, DIFICULDADE)
@@ -97,3 +98,4 @@ def dificuldade_screen(window, assets, dados):
         pygame.display.update()
 
     return state
+# Fim Mateus

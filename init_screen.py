@@ -1,7 +1,9 @@
 import math
 import pygame
+# Mateus
 from config import (WIDTH, HEIGHT, FPS, BRANCO, CREME, VERDE_OK, AZUL_UI, VERMELHO_ERRO, CORES_TITULO,
                     TAMANHO_ITEM, INIT, ESCOLHA, DIFICULDADE, QUIT)
+# Fim Mateus
 from desenho import fonte, texto, painel
 from sprites import Botao
 from assets import tocar_som, tocar_musica, liga_desliga_som
@@ -59,7 +61,9 @@ def init_screen(window, assets, dados):
             elif botao_play.clicado(event):
                 tocar_som(assets, 'clique')
                 dados['fase'] = 1
+                # Mateus
                 state = DIFICULDADE  # pergunta a dificuldade antes da fase 1
+                # Fim Mateus
                 running = False
             elif botao_fases.clicado(event):
                 tocar_som(assets, 'clique')

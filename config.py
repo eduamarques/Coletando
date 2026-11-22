@@ -50,6 +50,7 @@ TOTAL_FASES = 3
 ESTRELAS_PARA_PASSAR = 2
 PONTOS_ACERTO = 100
 
+# Mateus
 # Dificuldades: muda quantas ajudas a criança tem em cada fase
 #   facil   = todas as ajudas da fase
 #   medio   = metade das ajudas da fase
@@ -60,6 +61,7 @@ DIFICULDADES = {
     'dificil': {'nome': 'DIFÍCIL', 'cor': (230, 70, 70), 'descricao': 'Nenhuma ajuda'},
 }
 ORDEM_DIFICULDADES = ['facil', 'medio', 'dificil']
+# Fim Mateus
 
 # Esteira
 ESTEIRA_Y = 300  # topo da esteira
@@ -77,4 +79,6 @@ GAME = 2  # partida
 RESULTADO = 3  # estrelas no fim da fase
 PARABENS = 4  # animação final
 QUIT = 5
+# Mateus
 DIFICULDADE = 6  # escolha da dificuldade (antes da fase 1)
+# Fim Mateus
