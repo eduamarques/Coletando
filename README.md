@@ -5,25 +5,25 @@ Jogo educativo para crianças, feito em Python com PyGame, que ensina a separar 
 ## Integrantes do grupo
 
 - Eduardo Marques
+- Igor Matheus
 - Mateus Galatro
-- Igor Matheus 
 
 ## Vídeo do jogo funcionando
 
-- - - - -
+---
 
 ## Descrição
 
 Estamos dentro de uma **Central de Triagem**. Uma esteira traz vários lixos e a criança precisa
 **arrastar cada um até a lixeira certa**:
 
-| Lixeira | Cor |
-|---|---|
-| Plástico | vermelha |
-| Papel | azul |
-| Vidro | verde |
-| Metal | amarela |
-| Orgânico | marrom |
+| Lixeira   | Cor      |
+| --------- | -------- |
+| Plástico | Vermelha |
+| Papel     | Azul     |
+| Vidro     | Verde    |
+| Metal     | Amarela  |
+| Orgânico | Marrom   |
 
 As cores seguem o padrão brasileiro da coleta seletiva (Resolução CONAMA 275).
 
@@ -33,12 +33,11 @@ As cores seguem o padrão brasileiro da coleta seletiva (Resolução CONAMA 275)
 - Fases 1 e 2: **10 lixos**. Fase 3: **15 lixos**, todos diferentes e mais difíceis
   (isopor, papel-alumínio, caixa de ovos...).
 - **Dificuldade:** antes da fase 1 o jogo pergunta a dificuldade, que vale para as 3 fases:
-
   | Dificuldade | Ajudas por fase |
-  |---|---|
-  | Fácil | todas (2) |
-  | Médio | metade (1) |
-  | Difícil | nenhuma |
+  | ----------- | --------------- |
+  | Fácil      | Todas (2)       |
+  | Médio      | Metade (1)      |
+  | Difícil    | Nenhuma         |
 - **Ajudas:** em cada fase a criança pode **clicar** em lixos (quantas vezes depende da dificuldade). O jogo **pausa** e mostra
   o que é o objeto, do que ele é feito, em qual lixeira vai e por quê. As lâmpadas no canto
   da tela mostram quantas ajudas ainda restam. Rever a ajuda de um lixo já consultado não gasta outra.
@@ -60,12 +59,12 @@ As cores seguem o padrão brasileiro da coleta seletiva (Resolução CONAMA 275)
 
 ### Controles
 
-| Ação | Como |
-|---|---|
-| Separar o lixo | Clicar, segurar e arrastar até a lixeira |
-| Ver ajuda | Clicar (sem arrastar) no lixo |
-| Pausar / continuar | `ESC` |
-| Ligar/desligar o som | `M` |
+| Ação                 | Como                                      |
+| ---------------------- | ----------------------------------------- |
+| Separar o lixo         | Clicar, segurar e arrastar até a lixeira |
+| Ver ajuda              | Clicar (sem arrastar) no lixo             |
+| Pausar / Continuar     | `ESC`                                   |
+| Ligar / Desligar o som | `M`                                     |
 
 ## Como rodar
 
