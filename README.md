@@ -45,6 +45,7 @@ As cores seguem o padrão brasileiro da coleta seletiva (Resolução CONAMA 275)
   mostra qual era a lixeira certa.
 - **Estrelas** (fases com 10 lixos): 10 acertos = 3 estrelas, 8 ou 9 = 2, de 4 a 7 = 1, menos de 4 = nenhuma.
   Na fase 3 vale a mesma proporção: 15 = 3, de 12 a 14 = 2, de 6 a 11 = 1.
+- **Tempo por Fase:** cada fase tem um cronômetro. O limite é calculado de acordo com a velocidade da esteira. Quando o tempo acaba, a fase termina e é contabilizado os acertos atuais
 - É preciso ganhar **2 estrelas** para passar de fase. Se não ganhar, a fase é repetida.
 - Ao vencer a fase 3 aparece a animação final: **"Parabéns! Você aprendeu a reciclar um lixo!"**
 
@@ -53,7 +54,7 @@ As cores seguem o padrão brasileiro da coleta seletiva (Resolução CONAMA 275)
 - **Menu** (fachada da central): `PLAY` pergunta a dificuldade e começa a fase 1, `FASES` escolhe uma fase já
   desbloqueada e `SAIR` fecha o jogo.
 - **Dificuldade**: fácil, médio ou difícil (aparece antes da fase 1).
-- **Partida** (dentro da central): esteira, lixeiras, pontuação, ajudas e progresso da rodada.
+- **Partida** (dentro da central): esteira, lixeiras, pontuação, cronômetro, ajudas e progresso da rodada.
 - **Resultado** da fase com estrelas animadas.
 - **Parabéns** com confete, lixeiras dançando e chuva de lixinhos.
 
