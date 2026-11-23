@@ -117,5 +117,6 @@ Para regerar os sons: `python ferramentas/gerar_sons.py`.
 
 ## Uso de Inteligência Artificial
 
-_Preencher conforme as regras da disciplina: indicar quais partes do código foram geradas
-com IA, qual ferramenta foi usada, e anexar a interação._
+Nós fizemos a base do jogo com ajuda de IA Generativa (Claude), segue o prompt utilizado: 
+Não é possivel colocar o link do chat pois foi feito no claude code, fazendo com que não tenha link. 
+![Interação com o Claude](Prompt-Claude.png)
