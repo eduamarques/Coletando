@@ -182,14 +182,15 @@ def desenha_hud(window, fase, info, partida):
     # Fim Mateus
     texto(window, 'ESC: pausar o jogo', 19, CINZA_ESCURO, (904, 196), 'topleft')
 
-    segundos = int(partida['tempo_restante'])
+    # Feito manualmente por Igor
+    segundos = int(partida['tempo_restante'])                          # Feito manualmente por Igor
 
-    if partida['tempo_restante'] > segundos:
-        segundos += 1
+    if partida['tempo_restante'] > segundos:                           # Feito manualmente por Igor
+        segundos += 1                                                  # Feito manualmente por Igor
 
-    painel(window, (440, 66, 400, 110), CREME, 235)
+    painel(window, (440, 66, 400, 110), CREME, 235)                    # Feito manualmente por Igor
     
-    texto(window, f'Tempo: {segundos}s', 36, PRETO, (WIDTH/2, 121))
+    texto(window, f'Tempo: {segundos}s', 36, PRETO, (WIDTH/2, 121))    # Feito manualmente por Igor
 
 
 def desenha_mensagem(window, partida):
@@ -290,12 +291,14 @@ def game_screen(window, assets, dados):
 
     fase = dados['fase']
     info = FASES[fase]
-    distancia_fila = (info['itens'] - 1) * info['espacamento']
-    percurso = ESTEIRA_X_FIM + 40
+    
+    distancia_fila = (info['itens'] - 1) * info['espacamento']          # Feito manualmente por Igor
+    percurso = ESTEIRA_X_FIM + 40                                       # Feito manualmente por Igor
 
-    tempo_limite = (distancia_fila + percurso) / info['velocidade']
+    tempo_limite = (distancia_fila + percurso) / info['velocidade']     # Feito manualmente por Igor
 
-    total = info['itens']
+    total = info['itens']                                               # Feito manualmente por Igor
+
     # Mateus
     # quantas ajudas a criança tem nesta fase depende da dificuldade escolhida
     ajudas_total = calcula_ajudas(info['ajudas'], dados['dificuldade'])
@@ -334,7 +337,8 @@ def game_screen(window, assets, dados):
         'distancia_spawn': info['espacamento'],  # já começa pronto para soltar o 1º lixo
         'mensagem': '',  # faixa educativa que aparece depois de um erro
         'tempo_mensagem': 0,
-        'tempo_restante': tempo_limite,
+        
+        'tempo_restante': tempo_limite,                                                 # Feito manualmente por Igor
         # Eduardo
         # recorde da fase quando a partida começou (para mostrar no painel)
         'recorde': dados['progresso']['recordes'][fase]
@@ -479,15 +483,16 @@ def game_screen(window, assets, dados):
         elif state == JOGANDO or state == FIM:
             esteira.update(dt)
             if state == JOGANDO:
-                if len(partida['resultados']) < total:
-                    partida['tempo_restante'] -= dt
+                
+                if len(partida['resultados']) < total:                   # Feito manualmente por Igor
+                    partida['tempo_restante'] -= dt                      # Feito manualmente por Igor
 
-                if partida['tempo_restante'] <= 0:
-                    dados['acertos'] = partida['acertos']
-                    dados['total'] = total
-                    dados['pontos'] = partida['pontos']
+                if partida['tempo_restante'] <= 0:                       # Feito manualmente por Igor
+                    dados['acertos'] = partida['acertos']                # Feito manualmente por Igor
+                    dados['total'] = total                               # Feito manualmente por Igor
+                    dados['pontos'] = partida['pontos']                  # Feito manualmente por Igor
 
-                    return RESULTADO 
+                    return RESULTADO                                     # Feito manualmente por Igor
 
                 solta_proximo_lixo(partida, info, esteira, todos_lixos, assets, dt)
 
