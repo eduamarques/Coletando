@@ -116,6 +116,10 @@ assets/sons/            sons gerados pelo script acima
 Todos os desenhos e sons foram criados pelo próprio código, sem imagens ou músicas de terceiros.
 Para regerar os sons: `python ferramentas/gerar_sons.py`.
 
+## Link do vídeo jogando o jogo:
+
+Link: https://www.youtube.com/watch?v=G9yUl4LAb5w
+
 ## Uso de Inteligência Artificial
 
 Nós fizemos a base do jogo com ajuda de IA Generativa (Claude), segue o prompt utilizado: 
