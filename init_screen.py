@@ -12,7 +12,7 @@ from assets import tocar_som, tocar_musica, liga_desliga_som
 def desenha_titulo(window, tempo):
     # Título "COLETANDO" com letras coloridas pulando
     frase = 'COLETANDO'
-    f = fonte(78)
+    f = fonte(78)       # Define FONTES = {78 : objeto_de_fonte_1} e retorna objeto_de_fonte_1
     larguras = []
     largura_total = 0
     for letra in frase:
@@ -23,20 +23,21 @@ def desenha_titulo(window, tempo):
     for i in range(len(frase)):
         dy = math.sin(tempo * 4 + i * 0.5) * 8
         texto(window, frase[i], 78, CORES_TITULO[i % 5], (x + larguras[i] / 2, 78 + dy), contorno=4)
+                    # cola a frase, em formato de imagem, no local especificado
         x += larguras[i]
 
 
 def init_screen(window, assets, dados):
     # Variável para o ajuste de velocidade
-    clock = pygame.time.Clock()
+    clock = pygame.time.Clock()     # Cria um objeto relógio
     tocar_musica(assets, 'musica_menu')
 
     # Criando botões
-    botao_play = Botao((300, 330), 300, 82, 'PLAY', VERDE_OK, 44)
+    botao_play = Botao((300, 330), 300, 82, 'PLAY', VERDE_OK, 44)       # Define botão
     botao_fases = Botao((300, 440), 300, 82, 'FASES', AZUL_UI, 40)
     botao_sair = Botao((300, 550), 300, 82, 'SAIR', VERMELHO_ERRO, 40)
-    all_buttons = pygame.sprite.Group()
-    all_buttons.add(botao_play)
+    all_buttons = pygame.sprite.Group()     # Cria objeto grupo de botões para colocar vários objetos botões
+    all_buttons.add(botao_play)     # Adiciona objeto botão no objeto grupo de botões
     all_buttons.add(botao_fases)
     all_buttons.add(botao_sair)
 
@@ -49,10 +50,10 @@ def init_screen(window, assets, dados):
     running = True
     while running:
         # Ajusta a velocidade do jogo. dt = segundos desde o último frame
-        dt = min(clock.tick(FPS) / 1000, 0.05)
+        dt = min(clock.tick(FPS) / 1000, 0.05)      # Ajusta a passagem do tempo para ficar acima de 0.05 para evitar de as coisas ficarem muito rápidas
 
         # ----- Trata eventos
-        for event in pygame.event.get():
+        for event in pygame.event.get():        # Pega o último evento (última ação feita, como apertar em algo)
             if event.type == pygame.QUIT:
                 state = QUIT
                 running = False

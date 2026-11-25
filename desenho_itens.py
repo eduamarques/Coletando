@@ -16,7 +16,9 @@ TRANSPARENTE = (0, 0, 0, 0)
 # --- Atalhos: preenchem a forma e desenham o contorno escuro por cima ---------
 
 def retangulo(s, cor, rect, raio=0, borda=3):
-    pygame.draw.rect(s, cor, rect, border_radius=raio)
+                # s = Surface, genérica, sempre utilizada a mesma
+                # rect = Dimensões do retângulo (x, y, largura, altura)
+    pygame.draw.rect(s, cor, rect, border_radius=raio)     
     pygame.draw.rect(s, CONTORNO, rect, borda, border_radius=raio)
 
 
@@ -40,7 +42,7 @@ def circulo(s, cor, centro, raio, borda=3):
 
 def brilho(s, x1, y1, x2, y2):
     """Risquinho branco que dá impressão de objeto brilhante."""
-    pygame.draw.line(s, (255, 255, 255, 200), (x1, y1), (x2, y2), 4)
+    pygame.draw.line(s, (255, 255, 255, 200), (x1, y1), (x2, y2), 4)        # (Base, cor, ponto inicial, ponto final, espessura)
 
 
 # =============================== PLÁSTICO ===================================

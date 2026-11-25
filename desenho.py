@@ -4,7 +4,7 @@ from config import PRETO, BRANCO, AMARELO_OURO, LIXEIRAS
 
 # Dicionário com as fontes já carregadas (chave = tamanho da fonte).
 # Assim cada tamanho de fonte é carregado uma vez só.
-FONTES = {}
+FONTES = {}     # Terá objetos de fontes com atributos próprios após uso de funções
 NOMES_FONTES = 'arialroundedmtbold,comicsansms,trebuchetms,verdana,arial'
 
 
@@ -14,6 +14,8 @@ def fonte(tamanho):
         tamanho = 1
     if tamanho not in FONTES:
         FONTES[tamanho] = pygame.font.SysFont(NOMES_FONTES, tamanho, bold=True)
+                    # font.SysFont busca a fonte no próprio computador da pessoa, na ordem de NOMES_FONTES, até achar
+                    # Retorna um objeto de fonte
     return FONTES[tamanho]
 
 
@@ -34,7 +36,7 @@ def imagem_texto(conteudo, tamanho, cor, contorno=0, cor_contorno=PRETO):
     # Cria a imagem de um texto. Se contorno > 0, desenha uma borda escura
     # em volta das letras (estilo desenho animado).
     f = fonte(tamanho)
-    letras = f.render(str(conteudo), True, cor)
+    letras = f.render(str(conteudo), True, cor)     # Transforma texto em imagem
     if contorno == 0:
         return letras
 
@@ -55,7 +57,7 @@ def texto(window, conteudo, tamanho, cor, pos, ancora='center', contorno=0):
     # Escreve um texto na tela. A ancora diz qual ponto do texto fica em pos.
     # Devolve o retângulo (rect) usado.
     imagem = imagem_texto(conteudo, tamanho, cor, contorno)
-    rect = imagem.get_rect()
+    rect = imagem.get_rect()        # pega as dimensões do retângulo da imagem
     if ancora == 'center':
         rect.center = pos
     elif ancora == 'topleft':
@@ -66,7 +68,8 @@ def texto(window, conteudo, tamanho, cor, pos, ancora='center', contorno=0):
         rect.bottomleft = pos
     elif ancora == 'bottomright':
         rect.bottomright = pos
-    window.blit(imagem, rect)
+    window.blit(imagem, rect)       # blit cola uma imagem em cima de outra
+                # colou imagem na posição rect
     return rect
 
 

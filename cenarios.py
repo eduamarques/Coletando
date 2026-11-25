@@ -13,7 +13,7 @@ from desenho import simbolo_reciclagem, texto, ajusta_cor
 def gradiente_vertical(superficie, rect, cor_topo, cor_base):
     # Pinta o retângulo com um degradê de cima para baixo, uma linha de cada vez
     rect = pygame.Rect(rect)
-    for i in range(rect.h):
+    for i in range(rect.h):     # ".h" é o int da altura (height)
         t = i / (rect.h - 1)
         cor = []
         for k in range(3):
@@ -44,15 +44,17 @@ def arvore(window, x, chao, escala=1.0):
 
 class FundoExterno:
     # Fachada da Central de Triagem com céu, sol, nuvens e caminhão de coleta (usado nos menus)
-    def __init__(self):
-        self.tempo = 0
+    def __init__(self):     # __init__ é um construtor, self é um objeto
+        self.tempo = 0      # o atributo "tempo" do objeto "self" tem valor zero
         # cada nuvem é uma lista [x, y, escala, velocidade]
-        self.nuvens = []
+        self.nuvens = []        # o atributo "nuvens" do objeto "self" tem valor []
         for i in range(6):
             self.nuvens.append([random.randint(0, WIDTH), random.randint(40, 200),
-                                random.uniform(0.6, 1.2), random.uniform(12, 30)])
+                                random.uniform(0.6, 1.2), random.uniform(12, 30)])      # Devolve valor em float
         self.caminhao_x = -250
         self.estatico = self.desenha_estatico()
+                    # self.desenha_estatico() ao invés de desenha_estatico(self) porque a função desenha_estatico() pertence à classe, logo não é uma função qualquer disponível
+                    # Nesse caso, ela deve ser chamada de forma a indicar em qual objeto deve trabalhar
 
     def desenha_estatico(self):
         s = pygame.Surface((WIDTH, HEIGHT))
