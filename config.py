@@ -1,8 +1,13 @@
-from os import path
+from os import path     # path é um módulo que serve para trabalhar com arquivos e pastas
 
 # Estabelece a pasta que contem os sons e o arquivo de progresso.
+# __file__ --> /home/eduardo/Insper/Coletando/config.py
+# path.dirname(__file__) busca a pasta base do __file__ --> /home/eduardo/Insper/Coletando/
+# SND_DIR = Sound directory (assets/sons)
 SND_DIR = path.join(path.dirname(__file__), 'assets', 'sons')
+            # O módulo path junta os nomes dos endereços, obtendo /home/eduardo/Insper/Coletando/assets/sons
 ARQUIVO_PROGRESSO = path.join(path.dirname(__file__), 'progresso.json')
+            # O módulo path junta os nomes dos endereços, obtendo /home/eduardo/Insper/Coletando/progresso.json
 
 # Dados gerais do jogo.
 TITULO = 'Coletando - Central de Triagem'
